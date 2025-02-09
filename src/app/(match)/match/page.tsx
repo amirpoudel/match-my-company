@@ -2,9 +2,9 @@
 "use client"
 
 import React, { useState } from 'react'
-import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+// import * as z from "zod"
+// import { zodResolver } from "@hookform/resolvers/zod"
+// import { useForm } from "react-hook-form"
 import { useToast } from '@/hooks/use-toast'
 import axios from 'axios'
 
@@ -16,23 +16,23 @@ export default function Page() {
 
   const { toast } = useToast()
 
-  // Zod form validation
-  const form = useForm({
-    resolver: zodResolver(z.object({
-      username: z.string().min(1, {
-        message: "Username is required"
-      }),
-      companyName: z.string().min(1, {
-        message: "Company name is required"
-      }),
-    }))
-  })
+  // // Zod form validation
+  // const form = useForm({
+  //   resolver: zodResolver(z.object({
+  //     username: z.string().min(1, {
+  //       message: "Username is required"
+  //     }),
+  //     companyName: z.string().min(1, {
+  //       message: "Company name is required"
+  //     }),
+  //   }))
+  // })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!username || !companyName) {
-      toast({ title: "Please enter both username and company name." })
+      toast({ title: "Please enter both username and company name."  })
       return
     }
 
@@ -107,105 +107,3 @@ export default function Page() {
     </div>
   )
 }
-
-
-
-
-
-
-// "use client"
-// import React, { useState } from 'react'
-// import * as z from "zod"
-// import { zodResolver } from "@hookform/resolvers/zod"
-// import { useForm } from "react-hook-form"
-// import { useToast } from '@/hooks/use-toast'
-// import axios from 'axios'
-
-// export default function Page() {
-//   const [username, setUsername] = useState('')
-//   const [companyName, setCompanyName] = useState('')
-//   const [response, setResponse] = useState('')
-//   const [isSubmitting, setIsSubmitting] = useState(false)
-
-//   const { toast } = useToast()
-
-//   // Zod form validation
-//   const form = useForm({
-//     resolver: zodResolver(z.object({
-//       username: z.string().min(1, {
-//         message: "Username is required"
-//       }),
-//       companyName: z.string().min(1, {
-//         message: "Company name is required"
-//       }),
-//     }))
-//   })
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault()
-
-//     if (!username || !companyName) {
-//       toast({title:"Need User Name & Company Name Both"})
-//       return
-//     }
-
-//     setIsSubmitting(true)
-//     setResponse('')
-
-//     try {
-//       // Hit API to get compatibility score
-//       const data = await axios.post(`/api/match`, {
-//         params: {
-//           userName:username,
-//           companyName
-//         }
-//       })
-//       console.log("Match Response: ",data.data.message)
-//       setResponse(data.data.message)
-    
-//     } catch (error) {
-//       console.error('Error fetching compatibility:', error)
-//       setResponse('Oops! Something went wrong. Please try again.')
-//     } finally {
-//       setIsSubmitting(false)
-//     }
-//   }
-
-//   return (
-//     <div>
-//       <h1>Find Compatibility</h1>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="username">Username</label>
-//           <input 
-//             type="text" 
-//             id="username" 
-//             value={username} 
-//             onChange={(e) => setUsername(e.target.value)} 
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="companyName">Company Name</label>
-//           <input 
-//             type="text" 
-//             id="companyName" 
-//             value={companyName} 
-//             onChange={(e) => setCompanyName(e.target.value)} 
-//             required
-//           />
-//         </div>
-//         <button type="submit" disabled={isSubmitting}>Check Compatibility</button>
-//       </form>
-
-//       {isSubmitting && <p>Checking compatibility...</p>}
-
-//       {response && (
-//         <div style={{ border: '1px solid #ddd', padding: '10px', marginTop: '20px' }}>
-//           <h3>Compatibility Score:</h3>
-//           <p>{response}</p>
-//         </div>
-//       )}
-//     </div>
-//   )
-// }
